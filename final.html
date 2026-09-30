@@ -1,0 +1,341 @@
+<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>I'm Really Sorry 🥺</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    }
+
+    :root {
+      --iphone16-plus-width: 430px;
+      --iphone16-plus-height: 932px;
+      --iphone16-plus-aspect: 430 / 932;
+    }
+
+    html, body {
+      height: 100dvh;
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #0f172a;
+    }
+
+    /* Ambient Animated Gradient Background */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 20%, #fecdd3 0%, #fda4af 35%, #e11d48 70%, #881337 100%);
+      background-size: 140% 140%;
+      animation: ambientGlow 12s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes ambientGlow {
+      0% { background-position: 0% 0%; filter: hue-rotate(0deg); }
+      50% { background-position: 100% 100%; filter: hue-rotate(10deg); }
+      100% { background-position: 0% 100%; filter: hue-rotate(-10deg); }
+    }
+
+    /* iPhone 16 Plus Viewport Card Container */
+    .app-viewport {
+      width: 100%;
+      max-width: var(--iphone16-plus-width);
+      height: 100dvh;
+      max-height: var(--iphone16-plus-height);
+      aspect-ratio: 430 / 932;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border-radius: 48px;
+      box-shadow: 
+        0 30px 80px -15px rgba(159, 18, 57, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+        0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.25rem 1.5rem 1.75rem 1.5rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (max-width: 440px) {
+      .app-viewport {
+        border-radius: 0;
+        max-height: 100dvh;
+        max-width: 100vw;
+        box-shadow: none;
+        border: none;
+      }
+    }
+
+    /* Floating Heart Particles */
+    @keyframes floatParticle {
+      0% {
+        transform: translateY(0) scale(0.8) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.85;
+      }
+      100% {
+        transform: translateY(-105vh) scale(1.3) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .heart-particle {
+      position: absolute;
+      bottom: -50px;
+      pointer-events: none;
+      animation: floatParticle 8s linear infinite;
+      z-index: 1;
+      filter: drop-shadow(0 2px 8px rgba(225, 29, 72, 0.3));
+    }
+
+    /* Button Glows & Smooth Motion */
+    .btn-yes-glow {
+      box-shadow: 0 12px 35px -6px rgba(225, 29, 72, 0.55);
+    }
+
+    .btn-yes-glow:active {
+      transform: scale(0.96);
+    }
+
+    .shimmer-text {
+      background: linear-gradient(135deg, #e11d48 0%, #be123c 50%, #9f1239 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+
+<body class="flex items-center justify-center relative">
+
+  <!-- Ambient background layer -->
+  <div class="ambient-bg"></div>
+
+  <!-- Background Heart Particle Container -->
+  <div id="heartParticleContainer" class="fixed inset-0 pointer-events-none z-0"></div>
+
+  <main class="app-viewport z-10 my-auto">
+
+    <!-- Header Section -->
+    <header class="text-center pt-1 relative z-10 flex flex-col items-center">
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-rose-100/90 border border-rose-200/80 text-rose-600 text-xs font-bold tracking-wider uppercase mb-2 shadow-sm">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-rose-500"></i>
+        <span>Message For You</span>
+      </span>
+      <h1 id="mainTitle" class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight leading-snug">
+        I'm Really Sorry 🥺
+      </h1>
+    </header>
+
+    <div id="contentBox" class="flex-1 flex flex-col justify-center items-center relative z-10 py-2">
+
+      <!-- STATE 1: HEARTFELT APOLOGY CARD -->
+      <section id="apologyView" class="w-full flex flex-col items-center text-center space-y-4">
+        
+        <!-- Interactive Avatar Emoji -->
+        <div class="relative">
+          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-br from-rose-200 via-pink-100 to-rose-50 flex items-center justify-center shadow-inner border border-white/80">
+            <span id="emojiFace" class="text-5xl sm:text-6xl transition-all duration-300 transform select-none">🥺</span>
+          </div>
+          <div class="absolute -bottom-2 -right-2 bg-gradient-to-r from-rose-500 to-pink-500 text-white p-2.5 rounded-2xl shadow-lg animate-bounce">
+            <i data-lucide="heart" class="w-4 h-4 fill-white"></i>
+          </div>
+        </div>
+
+        <!-- Note/Apology Box -->
+        <div class="bg-white/85 p-4 sm:p-5 rounded-3xl w-full text-left space-y-2.5 shadow-sm border border-white/90">
+          <div class="flex items-center justify-between border-b border-rose-100 pb-2">
+            <h2 class="text-sm font-bold text-gray-800">Hey beautiful,</h2>
+            <span class="text-[10px] font-bold text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-200/60">Sincere Note ❤️</span>
+          </div>
+          <p class="text-xs sm:text-sm text-gray-600 leading-relaxed font-medium">
+            I’ve been feeling so bad about how our date went. You deserved a great, special time, and I know I missed the mark.
+          </p>
+          <div class="bg-rose-50/80 p-3 rounded-2xl border border-rose-100/80">
+            <p class="text-xs sm:text-sm font-semibold text-rose-950 leading-relaxed">
+              I promise next time will be <span class="shimmer-text font-extrabold">completely different — relaxed, super fun, and memorable</span>. Great food, no chinta, and lots of love and laughs ✨
+            </p>
+          </div>
+        </div>
+
+        <!-- Question Prompt -->
+        <div class="pt-0.5">
+          <h3 class="text-sm sm:text-base font-extrabold text-gray-800 tracking-tight">
+            Will you give me another chance?
+          </h3>
+        </div>
+
+        <div class="relative w-full min-h-[64px] flex items-center justify-center gap-3 mt-1" id="actionArea">
+          <!-- YES Button -->
+          <button id="yesBtn" onclick="handleYesClick()" class="btn-yes-glow bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:to-pink-600 text-white font-extrabold py-3.5 px-6 sm:px-8 rounded-2xl text-sm sm:text-base transition-all duration-300 flex items-center justify-center gap-2 z-20 active:scale-95 shadow-md flex-1 max-w-[210px]">
+            <span>Yesss 💕</span>
+          </button>
+
+          <!-- Evasive Runaway NO Button -->
+          <button id="noBtn" class="bg-white/95 text-gray-600 font-bold py-3.5 px-6 rounded-2xl text-xs sm:text-sm transition-all duration-200 z-30 border border-rose-200 shadow-sm flex items-center justify-center gap-1 shrink-0">
+            <span>No 💔</span>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- STATE 2: THANK YOU & GIF DISPLAY -->
+      <section id="successView" class="hidden w-full flex-col items-center text-center space-y-4 py-2">
+        
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Thank You! 💕</h2>
+          <p class="text-xs sm:text-sm text-rose-600 font-bold mt-1">You just made my day so much brighter! ✨</p>
+        </div>
+
+        <!-- Animated GIF Container -->
+        <div class="w-full max-w-[280px] sm:max-w-[320px] rounded-3xl overflow-hidden shadow-lg border-4 border-white/90 bg-rose-50/50">
+          <!-- Replace src below with any GIF link you prefer -->
+          <img 
+            src=https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUydGtla2w4NHA1NDNiaG9qOWx3emZuY2R5aWpwaWhzZDAzdWdpbXp5MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xR5cPyPoL5HVXSphqA/giphy.gif" 
+            alt="Happy Dance GIF" 
+            class="w-full h-auto object-cover rounded-2xl"
+          />
+        </div>
+
+        <p class="text-xs sm:text-sm text-gray-600 font-semibold px-4">
+          Can't wait to see you and make it up to you! ❤️
+        </p>
+
+      </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center relative z-10 pt-1">
+      <p class="text-[11px] font-bold text-rose-600 tracking-wider uppercase">
+        By Tushar for Kirtika💕
+      </p>
+    </footer>
+
+  </main>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const apologyView = document.getElementById('apologyView');
+    const successView = document.getElementById('successView');
+    const mainTitle = document.getElementById('mainTitle');
+    const emojiFace = document.getElementById('emojiFace');
+    const heartContainer = document.getElementById('heartParticleContainer');
+
+    let dodgeCount = 0;
+    const sadEmojis = ['🥺', '💔', '😭', '🫣', '🥺', '😢'];
+
+    function moveNoButton(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      dodgeCount++;
+      emojiFace.innerText = sadEmojis[dodgeCount % sadEmojis.length];
+
+      const btnRect = noBtn.getBoundingClientRect();
+      const padding = 20;
+
+      const maxX = window.innerWidth - btnRect.width - padding;
+      const maxY = window.innerHeight - btnRect.height - padding;
+
+      const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+      noBtn.style.zIndex = '9999';
+
+      const currentScale = 1 + (dodgeCount * 0.06);
+      if (currentScale <= 1.4) {
+        yesBtn.style.transform = `scale(${currentScale})`;
+      }
+    }
+
+    ['touchstart', 'mouseover', 'mousedown'].forEach(evt => {
+      noBtn.addEventListener(evt, moveNoButton);
+    });
+
+    function handleYesClick() {
+      fireConfetti();
+
+      if (noBtn) {
+        noBtn.remove();
+      }
+
+      mainTitle.innerHTML = 'Yay! 🎉';
+      apologyView.classList.add('hidden');
+      successView.classList.remove('hidden');
+      successView.classList.add('flex');
+
+      lucide.createIcons();
+
+      for (let i = 0; i < 25; i++) {
+        setTimeout(spawnHeart, i * 100);
+      }
+    }
+
+    function fireConfetti() {
+      const count = 200;
+      const defaults = { origin: { y: 0.55 } };
+
+      function fire(particleRatio, opts) {
+        confetti(Object.assign({}, defaults, opts, {
+          particleCount: Math.floor(count * particleRatio)
+        }));
+      }
+
+      fire(0.25, { spread: 26, startVelocity: 55, colors: ['#f43f5e', '#fb7185', '#fda4af'] });
+      fire(0.2, { spread: 60, colors: ['#ffffff', '#f43f5e', '#e11d48'] });
+      fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+      fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92 });
+    }
+
+    function spawnHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart-particle');
+
+      const symbols = ['💖', '💕', '💗', '✨', '🌸', '❤️'];
+      heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+      heart.style.fontSize = (Math.random() * 14 + 18) + 'px';
+
+      heartContainer.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 8000);
+    }
+
+    setInterval(spawnHeart, 900);
+  </script>
+
+</body>
+</html>
